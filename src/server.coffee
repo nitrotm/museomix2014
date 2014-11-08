@@ -48,7 +48,11 @@ app.use(
 
 # views
 app.get '/generator.html', (req, res) -> res.render('generator')
-app.get '/designer', (req, res) -> res.render('designer')
+app.get '/designer.html', (req, res) -> res.render('designer')
+app.get '/designer/home.html', (req, res) -> res.render('designer-home')
+app.get '/designer/mode.html', (req, res) -> res.render('designer-mode')
+app.get '/designer/mode/text.html', (req, res) -> res.render('designer-mode-text')
+app.get '/designer/mode/paint.html', (req, res) -> res.render('designer-mode-paint')
 
 
 # datasets
