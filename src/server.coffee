@@ -74,14 +74,11 @@ app.get '/dataset', (req, res) ->
   )
   parser.on(
     'error',
-    ->
-      console.log('error')
+    -> res.end()
   )
   parser.on(
     'finish',
-    ->
-      console.log('end')
-      res.end(JSON.stringify(rows))
+    -> res.end(JSON.stringify(rows))
   )
 
   res.setHeader('Content-Type', 'application/json')
@@ -90,7 +87,7 @@ app.get '/dataset', (req, res) ->
   fs.readFile(
     'data/database.csv',
     (e, data) ->
-      return res.finish() if e?
+      return res.end() if e?
       parser.write(data)
       parser.end()
   )

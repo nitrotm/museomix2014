@@ -14,10 +14,6 @@ app.controller(
     '$scope'
     'database'
     (scope, database) ->
-      scope.image1 = 0
-      scope.image2 = 0
-      scope.image3 = 0
-
       scope.generate = ->
         available = (i for i in [0...scope.choices.length])
         selection = []
@@ -32,7 +28,14 @@ app.controller(
         scope.image3 = selection[2].index
         scope.code = "#{selection[0].id}-#{selection[1].id}-#{selection[2].id}"
 
-      database.rows.then( (data) -> scope.choices = data )
+      database.rows.then(
+        (data) ->
+          console.log(data)
+          scope.choices = data
+          scope.image1 = 0
+          scope.image2 = 0
+          scope.image3 = 0
+      )
   ]
 )
 
