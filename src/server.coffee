@@ -54,6 +54,8 @@ app.get '/designer/mode.html', (req, res) -> res.render('designer-mode')
 app.get '/designer/mode/text.html', (req, res) -> res.render('designer-mode-text')
 app.get '/designer/mode/paint.html', (req, res) -> res.render('designer-mode-paint')
 
+#
+app.post '/text', (req, res) ->
 
 # datasets
 app.get '/dataset', (req, res) ->
@@ -180,7 +182,10 @@ app.get(
   '/javascripts/angular-bootstrap.js',
   (req, res) -> res.sendFile(makeBowerPath('angular-bootstrap', 'ui-bootstrap.js'))
 )
-
+app.get(
+  '/javascripts/angular-bootstrap-tpls.js',
+(req, res) -> res.sendFile(makeBowerPath('angular-bootstrap', 'ui-bootstrap-tpls.js'))
+)
 
 # start server
 app.listen 8080

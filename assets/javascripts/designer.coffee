@@ -5,6 +5,8 @@ app = angular.module(
   [
     'ngResource'
     'ngRoute'
+    'database'
+    'ui.bootstrap'
   ]
 )
 
@@ -44,7 +46,42 @@ app.controller(
     '$scope'
     '$http'
     (scope, http) ->
-      # Send code to server
+
+      scope.sliderInterval = 2000
+
+      scope.compositions = [
+        {
+          title: 'I love bacon!',
+          images: [
+            {
+              url: 'http://baconmockup.com/300/200'
+            },
+            {
+              url: 'http://baconmockup.com/300/200'
+            },
+            {
+              url: 'http://baconmockup.com/300/200'
+            }
+          ],
+          text: 'Bla bla bla'
+        },
+        {
+          title: 'I love kitten!',
+          images: [
+            {
+              url: 'http://placekitten.com/g/300/200'
+            },
+            {
+              url: 'http://placekitten.com/g/300/200'
+            },
+            {
+              url: 'http://placekitten.com/g/300/200'
+            }
+          ],
+          text: 'Bla bla bla'
+        }
+      ]
+
       scope.processForm = ->
         return unless scope.code?
         window.location = '#/' + scope.code + '/mode.html'
@@ -68,8 +105,34 @@ app.controller(
     '$scope'
     '$http'
     '$routeParams'
-    (scope, http, routeParams) ->
+    'database'
+    (scope, http, routeParams, database) ->
       scope.code = routeParams.code
+      scope.pictureUrl1 = ''
+      scope.pictureUrl2 = ''
+      scope.pictureUrl3 = ''
+
+      pictureIds = scope.code.split('-')
+      scope.pictureUrls = []
+
+      database.rows.then(
+        (data) ->
+          for row in data
+            if row.id in pictureIds
+              scope.pictureUrls.push(row.url)
+      )
+
+      scope.formData = {}
+
+      scope.processForm = ->
+        http.post(
+          'text',
+          scope.formData
+        ).success( (data) ->
+          console.log(data)
+        ).error( (data) ->
+          console.log('fail')
+        )
   ]
 )
 
