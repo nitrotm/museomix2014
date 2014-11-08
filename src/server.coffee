@@ -97,6 +97,58 @@ app.get '/dataset', (req, res) ->
   )
 
 
+# arduino listener
+SerialPort = require('serialport').SerialPort
+arduino = new SerialPort(
+  '/dev/ttyACM0',
+  baudrate: 115200
+  dataBits: 8
+  stopBits: 1
+  parity: false
+  rtscts: false
+  xon: false
+  xoff: false
+  flowControl: false
+)
+arduinoBuffer = ''
+arduinoTrigger = null
+arduinoTriggerTimer = null
+arduinoSwitch = 0
+arduino.on(
+  'error',
+  (e) -> console.log(e)
+)
+arduino.on(
+  'data',
+  (data) ->
+    arduinoBuffer += data.toString()
+    i = arduinoBuffer.indexOf('\n')
+    if i > 0
+      line = arduinoBuffer.substring(0, i + 1).trim()
+      arduinoBuffer = arduinoBuffer.substring(i + 1)
+      console.log(line)
+      if arduinoTrigger
+        clearTimeout(arduinoTriggerTimer)
+        arduinoTriggerTimer = null
+        arduinoTrigger.end('1')
+        arduinoTrigger = null
+      else
+        arduinoSwitch = Date.now()
+)
+
+app.get '/trigger', (req, res) ->
+  arduinoTrigger = res
+  if arduinoSwitch? && (Date.now() - arduinoSwitch) < 60
+    arduinoSwitch = 0
+    res.end('1')
+  else
+    arduinoTriggerTimer = setTimeout(
+      -> res.end('0')
+      ,
+      5000
+    )
+
+
 # bower assets
 makeBowerPath = (project, file) -> path.join(rootPath, 'bower_components', project, file)
 

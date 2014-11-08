@@ -17,6 +17,7 @@
     "coffee-script": "",
     "jade": "",
     "less": "",
-    "csv-parse": ""
+    "csv-parse": "",
+    "serialport": ""
   }
 }

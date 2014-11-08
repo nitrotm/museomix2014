@@ -13,7 +13,8 @@ app.controller(
   [
     '$scope'
     'database'
-    (scope, database) ->
+    '$http'
+    (scope, database, $http) ->
       scope.generate = ->
         available = (i for i in [0...scope.choices.length])
         selection = []
@@ -28,9 +29,21 @@ app.controller(
         scope.image3 = selection[2].index
         scope.code = "#{selection[0].id}-#{selection[1].id}-#{selection[2].id}"
 
+      listenTrigger = ->
+        $http.get(
+          '/trigger',
+          timeout: 0
+        ).then(
+          (data) ->
+            scope.generate() if parseInt(data.data) == 1
+            listenTrigger()
+          ,
+          (e) -> listenTrigger()
+        )
+      listenTrigger()
+
       database.rows.then(
         (data) ->
-          console.log(data)
           scope.choices = data
           scope.image1 = 0
           scope.image2 = 0
