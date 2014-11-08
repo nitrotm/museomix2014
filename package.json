@@ -1,0 +1,22 @@
+{
+  "name": "museomix-artroulette",
+  "version": "0.1.0",
+  "description": "Museomix ArtRoulette Project",
+  "author": "Antony Ducommun <nitro@tmsrv.org>",
+  "license": "GPL",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/-.git"
+  },
+  "dependencies": {
+    "bower": "*",
+    "express": "",
+    "serve-static": "",
+    "compression": "",
+    "connect-compiler": "",
+    "coffee-script": "",
+    "jade": "",
+    "less": "",
+    "requirejs": ""
+  }
+}

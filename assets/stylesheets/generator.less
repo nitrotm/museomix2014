@@ -1,0 +1,50 @@
+@cellHeight: 600px;
+
+
+generator {
+  display: block;
+  position: relative;
+
+  cells {
+    position: absolute;
+    display: block;
+    height: @cellHeight;
+    top: 100px;
+    left: 100px;
+    right: 100px;
+
+    cell {
+      position: absolute;
+      display: block;
+      overflow: hidden;
+      width: 32%;
+      top: 0;
+      bottom: 0;
+      border: 3px solid black;
+      margin-right: 2px;
+
+      &.cell-1 {
+        left: 1%;
+      }
+      &.cell-2 {
+        left: 34%;
+      }
+      &.cell-3 {
+        left: 67%;
+      }
+
+      ul {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+
+        li {
+          height: @cellHeight;
+          padding: 50px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
