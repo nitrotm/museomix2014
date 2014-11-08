@@ -1,4 +1,4 @@
-@cellHeight: 600px;
+@cellHeight: 15cm;
 
 
 generator {
@@ -9,9 +9,9 @@ generator {
     position: absolute;
     display: block;
     height: @cellHeight;
-    top: 100px;
-    left: 100px;
-    right: 100px;
+    top: 1cm;
+    left: 1cm;
+    right: 1cm;
 
     cell {
       position: absolute;
@@ -20,8 +20,7 @@ generator {
       width: 32%;
       top: 0;
       bottom: 0;
-      border: 3px solid black;
-      margin-right: 2px;
+      border: 2mm solid black;
 
       &.cell-1 {
         left: 1%;
@@ -40,8 +39,9 @@ generator {
         right: 0;
 
         li {
-          height: @cellHeight;
-          padding: 50px;
+          overflow: hidden;
+          height: @cellHeight - 4mm;
+          padding: 0.5cm;
           text-align: center;
         }
       }
@@ -50,8 +50,9 @@ generator {
 
   .code {
     position: absolute;
-    top: @cellHeight + 150px;
-    left: 100px;
-    right: 100px;
+    top: @cellHeight + 2cm;
+    left: 1cm;
+    right: 1cm;
+    font-size: 2cm;
   }
 }

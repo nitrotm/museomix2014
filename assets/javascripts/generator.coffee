@@ -59,9 +59,14 @@ app.directive(
       scope:
         slotSelection: '='
       link: (scope, el) ->
+        height = el.outerHeight()
         scope.$watch('slotSelection', (value) ->
           return unless value?
-          el[0].scrollTop = 600 * value
+          height = 0
+          children = el.find('li')
+          for i in [0...value]
+            height += $(children[i]).outerHeight(true)
+          el[0].scrollTop = height
         )
   ]
 )

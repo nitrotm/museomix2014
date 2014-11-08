@@ -153,6 +153,10 @@ app.get '/trigger', (req, res) ->
 makeBowerPath = (project, file) -> path.join(rootPath, 'bower_components', project, file)
 
 app.get(
+  '/javascripts/jquery.js',
+  (req, res) -> res.sendFile(makeBowerPath('jquery', 'dist/jquery.js'))
+)
+app.get(
   '/javascripts/angular.js',
   (req, res) -> res.sendFile(makeBowerPath('angular', 'angular.js'))
 )
