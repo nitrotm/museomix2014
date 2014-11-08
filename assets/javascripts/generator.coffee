@@ -3,6 +3,7 @@
 app = angular.module(
   'app',
   [
+    'database'
   ]
 )
 
@@ -10,28 +11,15 @@ app.controller(
   'GeneratorController',
   [
     '$scope'
-    (scope) ->
+    'database'
+    (scope, database) ->
       scope.image1 = 0
       scope.image2 = 0
       scope.image3 = 0
 
-      scope.choices = [
-        {
-          index: 0
-          id: 'HA'
-          url: 'images/1.jpg'
-        },
-        {
-          index: 1
-          id: 'XC'
-          url: 'images/2.jpg'
-        },
-        {
-          index: 2
-          id: 'EJ'
-          url: 'images/3.jpg'
-        }
-      ]
+      scope.choices = database
+      for i in [0...scope.choices.length]
+        scope.choices[i].index = i
       scope.generate = ->
         available = (i for i in [0...scope.choices.length])
         selection = []
