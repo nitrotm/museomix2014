@@ -155,14 +155,15 @@ app.get '/trigger', (req, res) ->
 child_process = require('child_process')
 
 app.get '/print', (req, res) ->
+  res.end('')
   child = child_process.exec(
-    '\texlive\2014\bin\win32\xelatex.exe print.tex',
+    '\\texlive\\2014\\bin\\win32\\xelatex.exe print.tex',
     (err, stdout, stdin) ->
       child_process.exec(
-        '\texlive\2014\bin\win32\pdf2ps.exe print.pdf',
+        '\\texlive\\2014\\bin\\win32\\pdf2ps.exe print.pdf',
           (err, stdout, stdin) ->
             child_process.exec(
-              '"\Program Files (x86)\SumatraPDF\SumatraPDF.exe" --print-to-default print.pdf'
+              '"\\Program Files (x86)\\SumatraPDF\\SumatraPDF.exe" -print-to-default print.pdf'
             )
       )
     )
