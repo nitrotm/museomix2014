@@ -54,19 +54,19 @@ makeBowerPath = (project, file) -> path.join(rootPath, 'bower_components', proje
 
 app.get(
   '/javascripts/angular.js',
-  (req, res) -> res.sendfile(makeBowerPath('angular', 'angular.js'))
+  (req, res) -> res.sendFile(makeBowerPath('angular', 'angular.js'))
 )
 app.get(
   '/javascripts/angular-locale-en.js',
-  (req, res) -> res.sendfile(makeBowerPath('angular-i18n', 'angular-locale-en.js'))
+  (req, res) -> res.sendFile(makeBowerPath('angular-i18n', 'angular-locale-en.js'))
 )
 app.get(
   '/javascripts/angular-route.js',
-  (req, res) -> res.sendfile(makeBowerPath('angular-route', 'angular-route.js'))
+  (req, res) -> res.sendFile(makeBowerPath('angular-route', 'angular-route.js'))
 )
 app.get(
   '/javascripts/angular-bootstrap.js',
-  (req, res) -> res.sendfile(makeBowerPath('angular-bootstrap', 'ui-bootstrap.js'))
+  (req, res) -> res.sendFile(makeBowerPath('angular-bootstrap', 'ui-bootstrap.js'))
 )
 
 
