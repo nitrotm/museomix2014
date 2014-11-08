@@ -48,6 +48,7 @@ app.use(
 
 # views
 app.get '/generator.html', (req, res) -> res.render('generator')
+app.get '/designer', (req, res) -> res.render('designer')
 
 
 # datasets
@@ -113,6 +114,10 @@ app.get(
 app.get(
   '/javascripts/angular-route.js',
   (req, res) -> res.sendFile(makeBowerPath('angular-route', 'angular-route.js'))
+)
+app.get(
+  '/javascripts/angular-resource.js',
+(req, res) -> res.sendFile(makeBowerPath('angular-resource', 'angular-resource.js'))
 )
 app.get(
   '/javascripts/angular-bootstrap.js',

@@ -9,10 +9,17 @@ html
     //- script(src='javascripts/angular-locale-en.js', type='text/javascript')
     script(src='javascripts/angular-route.js', type='text/javascript')
     script(src='javascripts/angular-bootstrap.js', type='text/javascript')
+    script(src='javascripts/angular-resource.js', type='text/javascript')
 
-    script(src='javascripts/generator.js', type='text/javascript')
+    script(src='javascripts/designer.js', type='text/javascript')
+
   body
-    gallery(ng-controller='GalleryController')
-      cell.cell-1
-      cell.cell-2
-      cell.cell-3
+    div(class='container')
+      div(class='row')
+        div(class='col-md-1')
+      div(class='row', ng-app='formApp')
+        form(class='form', ng-submit='processForm()', ng-controller='FormController')
+          div(class='col-md-6')
+            input(type='text', class='form-control', ng-model='formData.code')
+          div(class='col-md-6')
+            input(type='submit', class='btn pull-right')
