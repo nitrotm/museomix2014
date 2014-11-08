@@ -6,6 +6,7 @@ app = angular.module(
     'ngResource'
     'ngRoute'
     'database'
+    'ui.bootstrap'
   ]
 )
 
@@ -45,6 +46,8 @@ app.controller(
     '$scope'
     '$http'
     (scope, http) ->
+
+      scope.sliderInterval = 2000
 
       scope.compositions = [
         {

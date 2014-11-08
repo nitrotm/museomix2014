@@ -183,14 +183,9 @@ app.get(
   (req, res) -> res.sendFile(makeBowerPath('angular-bootstrap', 'ui-bootstrap.js'))
 )
 app.get(
-  '/javascripts/jquery.js',
-(req, res) -> res.sendFile(makeBowerPath('jquery/dist', 'jquery.min.js'))
+  '/javascripts/angular-bootstrap-tpls.js',
+(req, res) -> res.sendFile(makeBowerPath('angular-bootstrap', 'ui-bootstrap-tpls.js'))
 )
-app.get(
-  '/javascripts/carousel.js',
-(req, res) -> res.sendFile(makeBowerPath('bootstrap-less/js', 'carousel.js'))
-)
-
 
 # start server
 app.listen 8080
