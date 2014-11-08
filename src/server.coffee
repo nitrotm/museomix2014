@@ -151,6 +151,23 @@ app.get '/trigger', (req, res) ->
     )
 
 
+# printing
+child_process = require('child_process')
+
+app.get '/print', (req, res) ->
+  child = child_process.exec(
+    '\texlive\2014\bin\win32\xelatex.exe print.tex',
+    (err, stdout, stdin) ->
+      child_process.exec(
+        '\texlive\2014\bin\win32\pdf2ps.exe print.pdf',
+          (err, stdout, stdin) ->
+            child_process.exec(
+              '"\Program Files (x86)\SumatraPDF\SumatraPDF.exe" --print-to-default print.pdf'
+            )
+      )
+    )
+
+
 # bower assets
 makeBowerPath = (project, file) -> path.join(rootPath, 'bower_components', project, file)
 
