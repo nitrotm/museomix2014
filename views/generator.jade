@@ -34,5 +34,6 @@ html(lang='en', ng-app='app')
               img.img-responsive(ng-src='{{choice.url}}')
       .well.code
         button.btn.btn-success.pull-right(type='button', ng-click='generate()') I am feeling lucky!
-        span This is your code:
-        span {{code}}
+        p(ng-if='code')
+          span This is your code:
+          span {{code}}

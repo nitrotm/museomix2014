@@ -1,3 +1,4 @@
+console = require('console')
 fs = require('fs')
 path = require('path')
 
@@ -47,6 +48,51 @@ app.use(
 
 # views
 app.get '/generator.html', (req, res) -> res.render('generator')
+
+
+# datasets
+app.get '/dataset', (req, res) ->
+  first = true
+  rows = []
+
+  parser = require('csv-parse')(
+    delimiter: ','
+  )
+  parser.on(
+    'readable',
+    ->
+      while row = parser.read()
+        if first
+          first = false
+          continue
+        rows.push(
+          id: row[1]
+          url: 'images/' + row[2] + '.jpg'
+          title: row[3]
+        )
+  )
+  parser.on(
+    'error',
+    ->
+      console.log('error')
+  )
+  parser.on(
+    'finish',
+    ->
+      console.log('end')
+      res.end(JSON.stringify(rows))
+  )
+
+  res.setHeader('Content-Type', 'application/json')
+  res.writeHead(200)
+
+  fs.readFile(
+    'data/database.csv',
+    (e, data) ->
+      return res.finish() if e?
+      parser.write(data)
+      parser.end()
+  )
 
 
 # bower assets

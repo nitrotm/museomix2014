@@ -17,6 +17,6 @@
     "coffee-script": "",
     "jade": "",
     "less": "",
-    "requirejs": ""
+    "csv-parse": ""
   }
 }
