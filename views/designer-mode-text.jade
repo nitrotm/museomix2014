@@ -3,6 +3,6 @@ div(class='row')
     img(ng-src='{{pictureUrl}}', class='img-responsive')
 div(class='row')
   div(class='col-md-12')
-    form
-      textarea(class='form-control form-textarea')
+    form(ng-submit='processForm()')
+      textarea(class='form-control form-textarea', ng-model='formData.text')
       input(type='submit', class='btn btn-primary pull-right')

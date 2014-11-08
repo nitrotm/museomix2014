@@ -1,5 +1,22 @@
 div(class='row')
   div(class='col-md-12')
+    div(id='carousel-example-generic', class='carousel slide', data-ride='carousel')
+      div(class='carousel-inner', role='listbox')
+        div(class='item composition', ng-repeat='composition in compositions')
+          div(class='row')
+            div(class='col-md-4 composition-img', ng-repeat='image in composition.images')
+              img(src='{{image.url}}')
+          h3 {{composition.title}}
+          p {{composition.text}}
+      a(class='left carousel-control', href='#carousel-example-generic', role='button', data-slide='prev')
+        span(class='glyphicon glyphicon-chevron-left')
+        span(class='sr-only') Previous
+      a(class='right carousel-control', href='#carousel-example-generic', role='button', data-slide='next')
+        span(class='glyphicon glyphicon-chevron-right')
+        span(class='sr-only') Next
+div(class='row')
+  div(class='col-md-12')
     form(class='form', ng-submit='processForm()')
       input(type='text', class='form-control', ng-model='code')
       input(type='submit', class='btn btn-primary pull-right')
+script $(document).ready(function () {$('.carousel').carousel({interval: 2000})});

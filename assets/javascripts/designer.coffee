@@ -45,7 +45,40 @@ app.controller(
     '$scope'
     '$http'
     (scope, http) ->
-      # Send code to server
+
+      scope.compositions = [
+        {
+          title: 'I love bacon!',
+          images: [
+            {
+              url: 'http://baconmockup.com/300/200'
+            },
+            {
+              url: 'http://baconmockup.com/300/200'
+            },
+            {
+              url: 'http://baconmockup.com/300/200'
+            }
+          ],
+          text: 'Bla bla bla'
+        },
+        {
+          title: 'I love kitten!',
+          images: [
+            {
+              url: 'http://placekitten.com/g/300/200'
+            },
+            {
+              url: 'http://placekitten.com/g/300/200'
+            },
+            {
+              url: 'http://placekitten.com/g/300/200'
+            }
+          ],
+          text: 'Bla bla bla'
+        }
+      ]
+
       scope.processForm = ->
         return unless scope.code?
         window.location = '#/' + scope.code + '/mode.html'
@@ -83,9 +116,20 @@ app.controller(
         (data) ->
           for row in data
             if row.id in pictureIds
-              console.log('dsdfsdf')
               scope.pictureUrls.push(row.url)
       )
+
+      scope.formData = {}
+
+      scope.processForm = ->
+        http.post(
+          'text',
+          scope.formData
+        ).success( (data) ->
+          console.log(data)
+        ).error( (data) ->
+          console.log('fail')
+        )
   ]
 )
 

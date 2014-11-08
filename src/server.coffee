@@ -54,6 +54,8 @@ app.get '/designer/mode.html', (req, res) -> res.render('designer-mode')
 app.get '/designer/mode/text.html', (req, res) -> res.render('designer-mode-text')
 app.get '/designer/mode/paint.html', (req, res) -> res.render('designer-mode-paint')
 
+#
+app.post '/text', (req, res) ->
 
 # datasets
 app.get '/dataset', (req, res) ->
@@ -179,6 +181,14 @@ app.get(
 app.get(
   '/javascripts/angular-bootstrap.js',
   (req, res) -> res.sendFile(makeBowerPath('angular-bootstrap', 'ui-bootstrap.js'))
+)
+app.get(
+  '/javascripts/jquery.js',
+(req, res) -> res.sendFile(makeBowerPath('jquery/dist', 'jquery.min.js'))
+)
+app.get(
+  '/javascripts/carousel.js',
+(req, res) -> res.sendFile(makeBowerPath('bootstrap-less/js', 'carousel.js'))
 )
 
 
