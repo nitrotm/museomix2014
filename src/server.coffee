@@ -61,7 +61,7 @@ app.get(
   (req, res) -> res.sendFile(makeBowerPath('angular-i18n', 'angular-locale-en.js'))
 )
 app.get(
-  '/javascripts/angular-resources.js',
+  '/javascripts/angular-resource.js',
   (req, res) -> res.sendFile(makeBowerPath('angular-resource', 'angular-resource.js'))
 )
 app.get(
