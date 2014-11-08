@@ -5,6 +5,7 @@ app = angular.module(
   [
     'ngResource'
     'ngRoute'
+    'database'
   ]
 )
 
@@ -68,8 +69,23 @@ app.controller(
     '$scope'
     '$http'
     '$routeParams'
-    (scope, http, routeParams) ->
+    'database'
+    (scope, http, routeParams, database) ->
       scope.code = routeParams.code
+      scope.pictureUrl1 = ''
+      scope.pictureUrl2 = ''
+      scope.pictureUrl3 = ''
+
+      pictureIds = scope.code.split('-')
+      scope.pictureUrls = []
+
+      database.rows.then(
+        (data) ->
+          for row in data
+            if row.id in pictureIds
+              console.log('dsdfsdf')
+              scope.pictureUrls.push(row.url)
+      )
   ]
 )
 
