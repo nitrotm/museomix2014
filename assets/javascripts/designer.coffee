@@ -7,6 +7,7 @@ app = angular.module(
     'ngRoute'
     'database'
     'ui.bootstrap'
+    'compositions'
   ]
 )
 
@@ -45,42 +46,12 @@ app.controller(
   [
     '$scope'
     '$http'
-    (scope, http) ->
+    'compositions'
+    (scope, http, compositions) ->
 
       scope.sliderInterval = 2000
 
-      scope.compositions = [
-        {
-          title: 'I love bacon!',
-          images: [
-            {
-              url: 'http://baconmockup.com/300/200'
-            },
-            {
-              url: 'http://baconmockup.com/300/200'
-            },
-            {
-              url: 'http://baconmockup.com/300/200'
-            }
-          ],
-          text: 'Bla bla bla'
-        },
-        {
-          title: 'I love kitten!',
-          images: [
-            {
-              url: 'http://placekitten.com/g/300/200'
-            },
-            {
-              url: 'http://placekitten.com/g/300/200'
-            },
-            {
-              url: 'http://placekitten.com/g/300/200'
-            }
-          ],
-          text: 'Bla bla bla'
-        }
-      ]
+      scope.compositions = compositions
 
       scope.processForm = ->
         return unless scope.code?
@@ -106,33 +77,35 @@ app.controller(
     '$http'
     '$routeParams'
     'database'
-    (scope, http, routeParams, database) ->
+    'compositions'
+    (scope, http, routeParams, database, compositions) ->
       scope.code = routeParams.code
       scope.pictureUrl1 = ''
       scope.pictureUrl2 = ''
       scope.pictureUrl3 = ''
 
-      pictureIds = scope.code.split('-')
-      scope.pictureUrls = []
+      imagesIds = scope.code.split('-')
+      scope.images = []
 
       database.rows.then(
         (data) ->
           for row in data
-            if row.id in pictureIds
-              scope.pictureUrls.push(row.url)
+            if row.id in imagesIds
+              scope.images.push({
+                url: row.url
+              })
       )
 
       scope.formData = {}
 
       scope.processForm = ->
-        http.post(
-          'text',
-          scope.formData
-        ).success( (data) ->
-          console.log(data)
-        ).error( (data) ->
-          console.log('fail')
-        )
+        compositions.push({
+          title: scope.formData.title
+          images: scope.images
+          text: scope.formData.text
+        })
+
+        window.location = '#/'
   ]
 )
 

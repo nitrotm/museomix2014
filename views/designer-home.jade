@@ -4,7 +4,7 @@ div(class='row')
       slide(class='item composition', ng-repeat='composition in compositions', active='composition.active')
         div(class='row')
           div(class='col-md-4 composition-img', ng-repeat='image in composition.images')
-            img(ng-src='{{image.url}}')
+            img(ng-src='{{image.url}}', class='composition-img')
         h3 {{composition.title}}
         p {{composition.text}}
 div(class='row')
