@@ -59,7 +59,7 @@ app.directive(
       scope:
         slotSelection: '='
       link: (scope, el) ->
-        height = el.outerHeight()
+        height = el.height()
         scope.$watch('slotSelection', (value) ->
           return unless value?
           height = 0

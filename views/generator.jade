@@ -24,17 +24,16 @@ html(lang='en', ng-app='app')
         cell.cell-1(slot-driver='', slot-selection='image1')
           ul.list-unstyled
             li(ng-repeat='choice in choices')
-              img.img-responsive(ng-src='{{choice.url}}')
+              img.img-responsive.center-block(ng-src='{{choice.url}}')
         cell.cell-2(slot-driver='', slot-selection='image2')
           ul.list-unstyled
             li(ng-repeat='choice in choices')
-              img.img-responsive(ng-src='{{choice.url}}')
+              img.img-responsive.center-block(ng-src='{{choice.url}}')
         cell.cell-3(slot-driver='', slot-selection='image3')
           ul.list-unstyled
             li(ng-repeat='choice in choices')
-              img.img-responsive(ng-src='{{choice.url}}')
-      .well.code
-        button.btn.btn-success.pull-right(type='button', ng-click='generate()') I am feeling lucky!
-        p(ng-if='code')
-          span This is your code:
-          span {{code}}
+              img.img-responsive.center-block(ng-src='{{choice.url}}')
+      .well.code(ng-if='code')
+        span Your code:
+        span {{code}}
+      button.btn.btn-success.pull-right(type='button', ng-click='generate()') I am feeling lucky!
