@@ -47,13 +47,38 @@ app.controller(
     '$scope'
     '$http'
     'compositions'
-    (scope, http, compositions) ->
+    'database'
+    (scope, http, compositions, database) ->
 
       scope.sliderInterval = 15000
-
       scope.compositions = compositions
 
-      scope.processForm = ->
+      scope.submit = (form) ->
+        imagesIds = scope.code.split('-')
+
+        scope.images = []
+        database.rows.then(
+          (data) ->
+            for row in data
+              if row.id in imagesIds
+                scope.images.push({
+                  url: row.url
+                })
+        )
+
+        if (scope.images.length < 3)
+          scope.message = 'Veuillez entrer un code valide.'
+          delete scope.code
+
+          setTimeout(
+            ->
+              delete scope.message
+              scope.$digest()
+            , 5000
+          )
+
+          return false
+
         return unless scope.code?
         window.location = '#/' + scope.code + '/mode.html'
   ]
