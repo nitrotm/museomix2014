@@ -206,8 +206,14 @@ app.get '/print', (req, res) ->
         \\par\\noindent
         \\parbox[t][20mm][c]{62mm}{
           \\centering
+          \\par\\noindent\\textbf{Mixing Art \\& History}
+          \\vspace{1mm}
+          \\par\\noindent{\\footnotesize 1- Découvrez les œuvres proposées}
+          \\par\\noindent{\\footnotesize 2- Rejoignez la table d'expression}
+          \\par\\noindent{\\footnotesize 3- Créez et partagez votre histoire}
+          \\vspace{1mm}
           \\par\\noindent\\textbf{Votre code: #{req.query.id1}-#{req.query.id2}-#{req.query.id3}}
-          \\vspace{3mm}
+          \\vspace{1mm}
           \\par\\noindent Bonne visite!}
         \\vspace{3mm}
         \\par\\noindent
