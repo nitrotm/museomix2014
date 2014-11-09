@@ -38,8 +38,18 @@ app.controller(
           ->
             scope.image3 = selection[2].index
             scope.$digest()
-            # if print?
-            # TODO: send print
+
+            if print
+              $http.get(
+                '/print',
+                params:
+                  id1: selection[0].id
+                  text1: selection[0].title
+                  id2: selection[1].id
+                  text2: selection[1].title
+                  id3: selection[2].id
+                  text3: selection[2].title
+              )
           ,
           1000
         )

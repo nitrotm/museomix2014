@@ -1,6 +1,6 @@
 % Document type
 \documentclass[a4paper,10pt]{article}
-\usepackage[paperwidth=62mm,paperheight=62mm,margin=0mm]{geometry}
+\usepackage[paperwidth=62mm,paperheight=210mm,margin=0mm]{geometry}
 \usepackage[english]{babel}
 \usepackage{indentfirst}
 
@@ -35,27 +35,34 @@
 \setlength{\marginparsep}{0pt}
 \setlength{\marginparwidth}{0pt}
 \setlength{\parindent}{0pt}
-\parskip 0pt
+\setlength{\parskip}{1pt}
 
 % Document content
 \begin{document}
-  \par\begin{figure}[hb]
+  \par\noindent
+  \parbox[t][20mm][c]{62mm}{
     \centering
-    \includegraphics[width=0.5\textwidth]{../public/images/a2-scaled.jpg}
-    \caption[Title]{Abc def ghi}
-  \end{figure}
-
-  \newpage
-  \par\begin{figure}[hb]
+    \par\noindent Votre code: a2-b2-b3
+  }
+  \vspace{3mm}
+  \par\noindent
+  \parbox[t][50mm][c]{62mm}{
     \centering
-    \centering\includegraphics[width=0.5\textwidth]{../public/images/a2-scaled}
-    \caption[Title]{Abc def ghi}
-  \end{figure}
-
-  \newpage
-  \par\begin{figure}[hb]
+    \par\noindent\includegraphics[width=40mm]{../public/images/a2.jpg}
+    \par\noindent Abc def ghi
+  }
+  \vspace{3mm}
+  \par\noindent
+  \parbox[t][50mm][c]{62mm}{
     \centering
-    \centering\includegraphics[width=0.5\textwidth]{../public/images/a2-scaled.jpg}
-    \caption[Title]{Abc def ghi}
-  \end{figure}
+    \par\noindent\includegraphics[width=40mm]{../public/images/a3.jpg}
+    \par\noindent Abc def ghi
+  }
+  \vspace{3mm}
+  \par\noindent
+  \parbox[t][50mm][c]{62mm}{
+    \centering
+    \par\noindent\includegraphics[width=40mm]{../public/images/a4.jpg}
+    \par\noindent Abc def ghi
+  }
 \end{document}

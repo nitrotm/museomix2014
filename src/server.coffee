@@ -156,6 +156,81 @@ child_process = require('child_process')
 
 app.get '/print', (req, res) ->
   res.end('')
+
+  fs.writeFileSync(
+    'print.tex',
+    """
+      % Document type
+      \\documentclass[a4paper,10pt]{article}
+      \\usepackage[paperwidth=62mm,paperheight=210mm,margin=0mm]{geometry}
+      \\usepackage[english]{babel}
+      \\usepackage{indentfirst}
+
+      % Standard extensions
+      \\usepackage{parskip}
+      \\usepackage{float}
+      \\usepackage{color}
+      \\usepackage{multicol}
+      \\usepackage{subcaption}
+      \\usepackage[normalem]{ulem}
+
+      % Standard font
+      \\usepackage{fontspec}
+      \\setmainfont{Arial}
+
+      % Image support
+      \\usepackage{graphicx}
+      \\usepackage{wallpaper}
+
+      % Tables support
+      \\usepackage{tabularx}
+      \\usepackage{multirow}
+
+
+      % Sections configuration
+      \\setcounter{secnumdepth}{0}
+      \\setcounter{tocdepth}{0}
+
+      % Page formatting
+      \\pagestyle{empty}
+
+      \\setlength{\\marginparsep}{0pt}
+      \\setlength{\\marginparwidth}{0pt}
+      \\setlength{\\parindent}{0pt}
+      \\setlength{\\parskip}{1pt}
+
+      % Document content
+      \\begin{document}
+        \\par\\noindent
+        \\parbox[t][20mm][c]{62mm}{
+          \\centering
+          \\par\\noindent Votre code: #{req.query.id1}-#{req.query.id2}-#{req.query.id3}
+        }
+        \\vspace{3mm}
+        \\par\\noindent
+        \\parbox[t][50mm][c]{62mm}{
+          \\centering
+          \\par\\noindent\\includegraphics[height=30mm]{public/images/#{req.query.id1}.jpg}
+          \\par\\noindent #{req.query.text1}
+        }
+        \\vspace{3mm}
+        \\par\\noindent
+        \\parbox[t][50mm][c]{62mm}{
+          \\centering
+          \\par\\noindent\\includegraphics[height=30mm]{public/images/#{req.query.id2}.jpg}
+          \\par\\noindent #{req.query.text2}
+        }
+        \\vspace{3mm}
+        \\par\\noindent
+        \\parbox[t][50mm][c]{62mm}{
+          \\centering
+          \\par\\noindent\\includegraphics[height=30mm]{public/images/#{req.query.id3}.jpg}
+          \\par\\noindent #{req.query.text3}
+        }
+      \\end{document}
+    """
+  )
+
   child = child_process.exec(
     '\\texlive\\2014\\bin\\win32\\xelatex.exe print.tex',
     (err, stdout, stdin) ->
