@@ -15,7 +15,7 @@ app.controller(
     'database'
     '$http'
     (scope, database, $http) ->
-      generate = (print) ->
+      generate = (print = false) ->
         available = (i for i in [0...scope.choices.length])
         selection = []
         while available.length > 0
@@ -26,7 +26,6 @@ app.controller(
           selection.push(scope.choices[choice[0]])
         $('#music')[0].play()
         scope.image1 = selection[0].index
-        code = "#{selection[0].id}-#{selection[1].id}-#{selection[2].id}"
         setTimeout(
           ->
             scope.image2 = selection[1].index
@@ -45,10 +44,16 @@ app.controller(
                 params:
                   id1: selection[0].id
                   text1: selection[0].title
+                  description1: selection[0].description
+                  room1: selection[0].room
                   id2: selection[1].id
                   text2: selection[1].title
+                  description2: selection[1].description
+                  room2: selection[1].room
                   id3: selection[2].id
                   text3: selection[2].title
+                  description3: selection[2].description
+                  room3: selection[2].room
               )
           ,
           1000
@@ -57,7 +62,7 @@ app.controller(
       database.rows.then(
         (data) ->
           scope.choices = data
-          generate(false)
+          generate(true)
       )
 
       listenTrigger = ->
@@ -66,10 +71,15 @@ app.controller(
           timeout: 5000
         ).then(
           (data) ->
-            generate() if parseInt(data.data) == 1
+            generate(true) if parseInt(data.data) == 1
             listenTrigger()
           ,
-          (e) -> listenTrigger()
+          (e) ->
+            setTimeout(
+              -> listenTrigger()
+              ,
+              500
+            )
         )
       listenTrigger()
   ]

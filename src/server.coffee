@@ -76,6 +76,8 @@ app.get '/dataset', (req, res) ->
           id: row[1]
           url: 'images/' + row[2] + '-scaled.jpg'
           title: row[3]
+          description: row[6]
+          room: row[7]
         )
   )
   parser.on(
@@ -204,28 +206,38 @@ app.get '/print', (req, res) ->
         \\par\\noindent
         \\parbox[t][20mm][c]{62mm}{
           \\centering
-          \\par\\noindent Votre code: #{req.query.id1}-#{req.query.id2}-#{req.query.id3}
-        }
+          \\par\\noindent\\textbf{Votre code: #{req.query.id1}-#{req.query.id2}-#{req.query.id3}}
+          \\vspace{3mm}
+          \\par\\noindent Bonne visite!}
         \\vspace{3mm}
         \\par\\noindent
         \\parbox[t][50mm][c]{62mm}{
           \\centering
           \\par\\noindent\\includegraphics[height=30mm]{public/images/#{req.query.id1}.jpg}
-          \\par\\noindent #{req.query.text1}
+          \\par\\noindent\\textrm{\\small #{req.query.text1}}
+          \\par\\noindent\\textrm{\\footnotesize #{req.query.description1}}
+          \\vspace{1mm}
+          \\par\\noindent #{req.query.room1}
         }
         \\vspace{3mm}
         \\par\\noindent
         \\parbox[t][50mm][c]{62mm}{
           \\centering
           \\par\\noindent\\includegraphics[height=30mm]{public/images/#{req.query.id2}.jpg}
-          \\par\\noindent #{req.query.text2}
+          \\par\\noindent\\textrm{\\small #{req.query.text2}}
+          \\par\\noindent\\textrm{\\footnotesize #{req.query.description2}}
+          \\vspace{1mm}
+          \\par\\noindent #{req.query.room2}
         }
         \\vspace{3mm}
         \\par\\noindent
         \\parbox[t][50mm][c]{62mm}{
           \\centering
           \\par\\noindent\\includegraphics[height=30mm]{public/images/#{req.query.id3}.jpg}
-          \\par\\noindent #{req.query.text3}
+          \\par\\noindent\\textrm{\\small #{req.query.text3}}
+          \\par\\noindent\\textrm{\\footnotesize #{req.query.description2}}
+          \\vspace{1mm}
+          \\par\\noindent #{req.query.room3}
         }
       \\end{document}
     """
