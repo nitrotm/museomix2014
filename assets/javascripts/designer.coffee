@@ -68,7 +68,6 @@ app.controller(
             console.log(scope.images.length)
             if (scope.images.length < 3)
               scope.message = 'Veuillez entrer un code valide.'
-              delete scope.code
 
               setTimeout(
                 ->
