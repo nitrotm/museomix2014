@@ -25,21 +25,21 @@ That explains why the code refer gladly to strange paths within the system drive
 
 To install the server app (same on both machines):
 
-  git clone https://github.com/repo
+	git clone https://github.com/repo
 
 And then:
 
-  npm install
-  bower install
-  node run.js
+	npm install
+	bower install
+	node run.js
 
 Assuming that the computers are properly setup and arduino is plugged in, the generator ('slot machine') can be opened with:
 
-  chrome --kiosk "http://localhost:8080/generator.html"
+	chrome --kiosk "http://localhost:8080/generator.html"
 
 And the designer ('table screen') with following url:
 
-  chrome --kiosk "http://localhost:8080/designer.html"
+	chrome --kiosk "http://localhost:8080/designer.html"
 
 ## Technical authors:
 
