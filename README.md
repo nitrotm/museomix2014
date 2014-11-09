@@ -8,6 +8,8 @@ First a 'slot machine' is selecting some art pieces out of the museum collection
 
 Then - if the visitor wish it - a second machine (table screen) can be used to write a short story about how s/he perceives the 3 art pieces. Many type of inputs are possible in theory (text, drawing, audio, video, ...) but only a simple text input is implemented (could be in the form of keywords, questions, poems, haikus, jokes...). The machine also displays previous entered stories to passing visitors.
 
+http://www.museomix.org/prototypes/mah-machine/
+
 ## Technology
 
 - Node.js
