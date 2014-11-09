@@ -114,7 +114,7 @@ app.directive(
         texture = THREE.ImageUtils.loadTexture('images/texture3.jpg')
         texture.wrapS = texture.wrapT = THREE.RepeatWrapping
 
-        cylinderWidth = 10
+        cylinderWidth = 8
         cylinderRadius = 15
 
         cylinderGeometry = new THREE.CylinderGeometry(
@@ -168,7 +168,7 @@ app.directive(
         cylinderMaterial = new THREE.MeshPhongMaterial(
           # wireframe: true
           # color: 0xffffff
-          shininess: 100
+          shininess: 255
           map: texture
         )
         cylinderMesh = new THREE.Mesh(cylinderGeometry, cylinderMaterial)
@@ -180,9 +180,9 @@ app.directive(
 
         scene.add(cylinderMesh)
 
-        scene.add(new THREE.AmbientLight(0x505050))
-        light = new THREE.DirectionalLight(0xffffff, 0.5)
-        light.position.set(5, 5, 10)
+        scene.add(new THREE.AmbientLight(0xaaaaaa))
+        light = new THREE.DirectionalLight(0xe0e0e0, 0.2)
+        light.position.set(8, 5, 20)
         light.target = cylinderMesh
         scene.add(light)
 
