@@ -131,7 +131,7 @@ app.controller(
 
       scope.processForm = ->
         compositions.push({
-          title: scope.formData.title
+          email: scope.formData.email
           author: scope.formData.author
           images: scope.images
           text: scope.formData.text

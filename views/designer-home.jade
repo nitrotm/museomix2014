@@ -7,8 +7,7 @@ div(class='opaque')
           div(class='row')
             div(class='col-md-4 composition-img', ng-repeat='image in composition.images')
               img(ng-src='{{image.url}}', class='composition-img')
-          h3(class='composition-title') {{composition.title}}
-          h4(class='composition-author') {{composition.author}}
+          h3(class='composition-author') {{composition.author}}
           p(class='composition-text') {{composition.text}}
  div(class='box box-fixed-bottom code')
   a(class='code-link') Entrez votre code
