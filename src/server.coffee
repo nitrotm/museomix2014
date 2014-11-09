@@ -262,6 +262,15 @@ app.get '/print', (req, res) ->
     )
 
 
+# load
+app.get '/load', (req, res) ->
+  rows = (JSON.parse(fs.readFileSync('data/' + file)) for file in fs.readdirSync('data') when file.indexOf('.json') > 0)
+  rows = rows.slice(0, 20) if rows.length > 20
+
+  res.setHeader('Content-Type', 'application/json')
+  res.writeHead(200)
+  res.end(JSON.stringify(rows))
+
 # save
 app.get '/save', (req, res) ->
   res.end('')

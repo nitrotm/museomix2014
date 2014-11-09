@@ -53,6 +53,26 @@ app.controller(
       scope.sliderInterval = 15000
       scope.compositions = compositions
 
+      http.get('/load').then(
+        (data) ->
+          nextId = 0
+          for row in data.data
+            nextId += 1
+            compositions.push(
+              id: nextId
+              title: row.title
+              author: row.author
+              images: [
+                  url: 'images/' + row.id1 + '-scaled.jpg'
+                ,
+                  url: 'images/' + row.id2 + '-scaled.jpg'
+                ,
+                  url: 'images/' + row.id3 + '-scaled.jpg'
+              ]
+              text: row.text
+            )
+      )
+
       scope.submit = ->
         imagesIds = scope.code.split('-')
 
@@ -131,12 +151,11 @@ app.controller(
 
       scope.processForm = ->
         composition =
+          id: Date.now()
           title: scope.formData.title
           author: scope.formData.author
           images: scope.images
           text: scope.formData.text
-
-        compositions.push(composition)
 
         http.get(
           '/save',
@@ -148,6 +167,9 @@ app.controller(
             author: composition.author
             text: composition.text
         )
+
+        compositions.push(composition)
+        compositions.shift() if compositions.length > 20
 
         window.location = '#/'
   ]
