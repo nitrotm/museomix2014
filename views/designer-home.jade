@@ -1,6 +1,6 @@
 div(class='opaque')
- div(class='container', style='padding-top: 10px;')
-  h1.text-center(style='margin-bottom: 10px;') Les histoires précédentes...
+ div(class='container')
+  h1.text-center Les histoires précédentes...
   div(class='row')
     div(class='col-md-12')
       carousel(interval='sliderInterval', style='height: 430px;', pause='sliderPause')
@@ -8,11 +8,8 @@ div(class='opaque')
           div(class='row')
             div(class='col-md-4 composition-img', ng-repeat='image in composition.images')
               img(ng-src='{{image.url}}', class='composition-img')
-          //- h3(class='composition-title') {{composition.title}}
-          h4(class='composition-author')
-            | Auteur :&nbsp;
-            span {{composition.author}}
-          p(class='composition-text', style='overflow: auto; max-height: 300px;') {{composition.text}}
+          p(class='composition-text') {{composition.text}}
+          h4(class='composition-author pull-right') {{composition.author}}
         //- button.btn.btn-default(type='button', ng-click='pause()')
  div(class='box box-fixed-bottom code')
   a(class='code-link') Pour raconter votre histoire, entrez votre code ci-dessous :
