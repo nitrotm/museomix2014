@@ -24,7 +24,8 @@ app.controller(
             1
           )
           selection.push(scope.choices[choice[0]])
-        $('#music')[0].play()
+        if print
+          $('#music')[0].play()
         scope.image1 = selection[0].index
         setTimeout(
           ->
@@ -62,7 +63,7 @@ app.controller(
       database.rows.then(
         (data) ->
           scope.choices = data
-          generate(true)
+          generate(false)
       )
 
       listenTrigger = ->
