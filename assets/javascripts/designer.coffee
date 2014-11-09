@@ -92,6 +92,9 @@ app.controller(
     '$routeParams'
     (scope, http, routeParams) ->
       scope.code = routeParams.code
+
+      scope.back = ->
+        window.history.back();
   ]
 )
 
@@ -123,9 +126,13 @@ app.controller(
 
       scope.formData = {}
 
+      scope.back = ->
+        window.history.back();
+
       scope.processForm = ->
         compositions.push({
           title: scope.formData.title
+          author: scope.formData.author
           images: scope.images
           text: scope.formData.text
         })
