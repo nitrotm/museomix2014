@@ -49,10 +49,8 @@ app.controller(
     'compositions'
     'database'
     (scope, http, compositions, database) ->
-      console.log(scope)
 
       scope.sliderInterval = 15000
-      scope.sliderPause = true
       scope.compositions = compositions
 
       scope.submit = ->

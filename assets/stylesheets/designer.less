@@ -1,3 +1,7 @@
+/**
+ * CONFIG
+ */
+
 @black: #000;
 @orange: #ee7517;
 @orange-dark: darken(@orange, 10%);
@@ -16,6 +20,9 @@
 @default-transition-duration: 2s;
 @fast-transition-duration: @default-transition-duration / 4;
 
+/**
+ * BASE
+ */
 h1, h2, h3, h4 {
     margin: 0 0 @spacing-double 0;
 }
@@ -24,6 +31,9 @@ body {
     background: url('../images/background-onepiece.png') repeat;
 }
 
+/**
+ * LAYOUT
+ */
 .opaque {
     background-color: rgba(255, 255, 255, 0.75);
 }
@@ -75,6 +85,9 @@ body {
     left: 30px;
 }
 
+/**
+ * MODE
+ */
 .mode {
 
 }
@@ -84,6 +97,9 @@ body {
     padding-right: @spacing-half;
 }
 
+/**
+ * BUTTONS
+ */
 .btn {
     transition: background @default-transition-duration;
 
@@ -140,6 +156,9 @@ body {
     bottom: 0;
 }
 
+/**
+ * CODE
+ */
 .code {
     background-color: @black;
 
@@ -196,6 +215,9 @@ body {
     top: -5px;
 }
 
+/**
+ * COMPOSITION
+ */
 .composition {
 
 }
@@ -219,6 +241,13 @@ body {
 
 .composition-text {
     font-size: @default-font-size;
+}
+
+/**
+ * CAROUSEL
+ */
+.carousel-indicators {
+    display: none;
 }
 
 .carousel-control.carousel-control {
