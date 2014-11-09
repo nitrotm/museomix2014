@@ -44,7 +44,9 @@ And the designer ('table screen') with following url:
 ## Technical authors:
 
 Quentin Berthet: arduino and cool hardware hacking.
+
 Antony Ducommun: anti-tecture and 'slot machine' app.
+
 Geoffroy Perriard: 'table screen' app.
 
 ## License
