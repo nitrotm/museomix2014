@@ -202,7 +202,11 @@ app.get(
 )
 app.get(
   '/javascripts/angular-bootstrap-tpls.js',
-(req, res) -> res.sendFile(makeBowerPath('angular-bootstrap', 'ui-bootstrap-tpls.js'))
+  (req, res) -> res.sendFile(makeBowerPath('angular-bootstrap', 'ui-bootstrap-tpls.js'))
+)
+app.get(
+  '/javascripts/three.js',
+  (req, res) -> res.sendFile(makeBowerPath('threejs', 'build/three.js'))
 )
 
 # start server
