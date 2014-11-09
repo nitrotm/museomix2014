@@ -74,7 +74,7 @@ app.get '/dataset', (req, res) ->
           continue
         rows.push(
           id: row[1]
-          url: 'images/' + row[2] + '.jpg'
+          url: 'images/' + row[2] + '-scaled.jpg'
           title: row[3]
         )
   )

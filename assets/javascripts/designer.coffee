@@ -53,7 +53,7 @@ app.controller(
       scope.sliderInterval = 15000
       scope.compositions = compositions
 
-      scope.submit = (form) ->
+      scope.submit = ->
         imagesIds = scope.code.split('-')
 
         scope.images = []
@@ -64,23 +64,24 @@ app.controller(
                 scope.images.push({
                   url: row.url
                 })
+
+            console.log(scope.images.length)
+            if (scope.images.length < 3)
+              scope.message = 'Veuillez entrer un code valide.'
+              delete scope.code
+
+              setTimeout(
+                ->
+                  delete scope.message
+                  scope.$digest()
+              , 5000
+              )
+
+              return false
+
+            return unless scope.code?
+            window.location = '#/' + scope.code + '/mode.html'
         )
-
-        if (scope.images.length < 3)
-          scope.message = 'Veuillez entrer un code valide.'
-          delete scope.code
-
-          setTimeout(
-            ->
-              delete scope.message
-              scope.$digest()
-            , 5000
-          )
-
-          return false
-
-        return unless scope.code?
-        window.location = '#/' + scope.code + '/mode.html'
   ]
 )
 
