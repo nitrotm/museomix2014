@@ -102,7 +102,7 @@ app.get '/dataset', (req, res) ->
 # arduino listener
 SerialPort = require('serialport').SerialPort
 arduino = new SerialPort(
-  '/dev/ttyACM0',
+  'COM4',
   baudrate: 115200
   dataBits: 8
   stopBits: 1
