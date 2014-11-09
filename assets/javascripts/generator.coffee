@@ -111,7 +111,7 @@ app.directive(
 
         scene = new THREE.Scene()
 
-        texture = THREE.ImageUtils.loadTexture('images/texture2.jpg')
+        texture = THREE.ImageUtils.loadTexture('images/texture3.jpg')
         texture.wrapS = texture.wrapT = THREE.RepeatWrapping
 
         cylinderWidth = 10
@@ -216,9 +216,9 @@ app.directive(
         render()
 
         start = (x) ->
-          x1 = 360 / (x + 1) + 360 * 1
-          x2 = 360 / (x + 1) + 360 * 9
-          x3 = 360 / (x + 1) + 360 * 10
+          x1 = 360 / 13 * x + 360 * 1
+          x2 = 360 / 13 * x + 360 * 9
+          x3 = 360 / 13 * x + 360 * 10
           clock = new THREE.Clock()
 
         scope.$watch(
