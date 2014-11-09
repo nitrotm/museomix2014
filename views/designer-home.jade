@@ -6,12 +6,12 @@ div(class='container')
          div(class='row')
            div(class='col-md-4 composition-img', ng-repeat='image in composition.images')
              img(ng-src='{{image.url}}', class='composition-img')
-         h3(class='title title-wide') {{composition.title}}
-         h4(class='title title-wide') {{composition.author}}
-         p(class='title title-wide') {{composition.text}}
+         h3(class='composition-title') {{composition.title}}
+         h4(class='composition-author') {{composition.author}}
+         p(class='composition-text') {{composition.text}}
 div(class='box box-fixed-bottom code')
  a(class='code-link') Entrez votre code
- div(class='container')
+ div(class='container code-container')
   form(class='form', name='codeForm')
     div(class='row')
       div(class='col-md-12')
