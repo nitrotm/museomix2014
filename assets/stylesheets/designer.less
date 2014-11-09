@@ -1,5 +1,5 @@
 @black: #000;
-@orange: #FC8F00;
+@orange: #ee7517;
 @orange-dark: darken(@orange, 10%);
 @orange-light: lighten(@orange, 10%);
 @grey-light: #DBDBDB;
@@ -9,6 +9,8 @@
 @spacing-double: @default-spacing * 2;
 @spacing-half: @default-spacing / 2;
 
+@very-big-font-size-base: 34px;
+@big-font-size-base: 28px;
 @default-font-size: 24px;
 
 @default-transition-duration: 2s;
@@ -22,8 +24,14 @@ body {
     background: url('../images/background-onepiece.png') repeat;
 }
 
+.opaque {
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
 .container {
-    padding-top: @spacing-double;
+    min-height: 100%;
+
+    padding: @spacing-double @spacing-double 0 @spacing-double;
 }
 
 .row {
@@ -35,8 +43,6 @@ body {
     line-height: 45px;
 
     margin-bottom: @default-spacing;
-
-    border-radius: 0;
 
     font-size: @default-font-size;
 
@@ -69,16 +75,6 @@ body {
     left: 30px;
 }
 
-.title {
-    display: inline-block;
-
-    background-color: @white;
-}
-
-.title-wide {
-    display: block;
-}
-
 .mode {
 
 }
@@ -89,8 +85,6 @@ body {
 }
 
 .btn {
-    border-radius: 0;
-
     transition: background @default-transition-duration;
 
     &:hover {
@@ -152,6 +146,12 @@ body {
     text-align: center;
 }
 
+.code-container {
+    padding: 0;
+
+    background-color: @black;
+}
+
 .code-link {
     display: block;
     width: 100%;
@@ -203,6 +203,22 @@ body {
 .composition-img {
     text-align: center;
     max-width: 100%;
+}
+
+.composition-title {
+    margin-bottom: @spacing-half;
+
+    font-size: @very-big-font-size-base;
+}
+
+.composition-author {
+    margin-bottom: @spacing-half;
+
+    font-size: @big-font-size-base;
+}
+
+.composition-text {
+    font-size: @default-font-size;
 }
 
 .carousel-control.carousel-control {
