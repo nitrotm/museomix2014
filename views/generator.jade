@@ -21,6 +21,7 @@ html(lang='en', ng-app='app')
     script(src='javascripts/generator.js', type='text/javascript')
   body
     generator(ng-controller='GeneratorController')
+      audio#music(src='audio/sound.wav')
       cells
         cell.cell-1(slot-driver-gl='', slot-selection='image1')
           //- ul.list-unstyled

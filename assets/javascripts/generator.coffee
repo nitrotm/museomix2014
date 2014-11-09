@@ -24,7 +24,7 @@ app.controller(
             1
           )
           selection.push(scope.choices[choice[0]])
-        # TODO: music
+        $('#music')[0].play()
         scope.image1 = selection[0].index
         code = "#{selection[0].id}-#{selection[1].id}-#{selection[2].id}"
         setTimeout(
