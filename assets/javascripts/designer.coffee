@@ -49,7 +49,7 @@ app.controller(
     'compositions'
     (scope, http, compositions) ->
 
-      scope.sliderInterval = 2000
+      scope.sliderInterval = 15000
 
       scope.compositions = compositions
 
