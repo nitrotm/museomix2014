@@ -49,8 +49,10 @@ app.controller(
     'compositions'
     'database'
     (scope, http, compositions, database) ->
+      console.log(scope)
 
       scope.sliderInterval = 15000
+      scope.sliderPause = true
       scope.compositions = compositions
 
       scope.submit = ->
@@ -130,12 +132,24 @@ app.controller(
         window.history.back();
 
       scope.processForm = ->
-        compositions.push({
+        composition =
           title: scope.formData.title
           author: scope.formData.author
           images: scope.images
           text: scope.formData.text
-        })
+
+        compositions.push(composition)
+
+        http.get(
+          '/save',
+          params:
+            id1: imagesIds[0]
+            id2: imagesIds[1]
+            id3: imagesIds[2]
+            title: composition.title
+            author: composition.author
+            text: composition.text
+        )
 
         window.location = '#/'
   ]

@@ -16,7 +16,7 @@ app.controller(
     '$http'
     (scope, database, $http) ->
       generate = (print = false) ->
-        available = (i for i in [0...scope.choices.length])
+        available = (i for i in [0...scope.choices.length] when ['a2', 'a3', 'a9', 'b7'].indexOf(scope.choices[i].id) < 0)
         selection = []
         while available.length > 0
           choice = available.splice(

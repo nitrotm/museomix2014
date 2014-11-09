@@ -1,22 +1,26 @@
 div(class='opaque')
- div(class='container')
+ div(class='container', style='padding-top: 10px;')
+  h1.text-center(style='margin-bottom: 10px;') Les histoires précédentes...
   div(class='row')
     div(class='col-md-12')
-      carousel(interval='sliderInterval')
+      carousel(interval='sliderInterval', style='height: 430px;', pause='sliderPause')
         slide(class='item composition', ng-repeat='composition in compositions', active='composition.active')
           div(class='row')
             div(class='col-md-4 composition-img', ng-repeat='image in composition.images')
               img(ng-src='{{image.url}}', class='composition-img')
-          h3(class='composition-title') {{composition.title}}
-          h4(class='composition-author') {{composition.author}}
-          p(class='composition-text') {{composition.text}}
+          //- h3(class='composition-title') {{composition.title}}
+          h4(class='composition-author')
+            | Auteur :&nbsp;
+            span {{composition.author}}
+          p(class='composition-text', style='overflow: auto; max-height: 300px;') {{composition.text}}
+        //- button.btn.btn-default(type='button', ng-click='pause()')
  div(class='box box-fixed-bottom code')
-  a(class='code-link') Entrez votre code
+  a(class='code-link') Pour raconter votre histoire, entrez votre code ci-dessous :
   div(class='container code-container')
    form(class='form', name='codeForm')
      div(class='row')
        div(class='col-md-12')
          span(class='alert alert-danger alert-block code-alert', data-ng-if='message') {{message}}
        div(class='col-md-12')
-         input(type='text', name='code', class='form-control code-input', ng-model='code', placeholder='Votre code', required)
-         input(type='submit', class='btn btn-default code-submit', data-ng-click='submit()')
+         input(type='text', name='code', class='form-control code-input', ng-model='code', placeholder='Votre code (xx-xx-xx)', required)
+         input(type='submit', class='btn btn-default code-submit', data-ng-click='submit()', value='Démarrer')

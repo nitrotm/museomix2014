@@ -262,6 +262,16 @@ app.get '/print', (req, res) ->
     )
 
 
+# save
+app.get '/save', (req, res) ->
+  res.end('')
+
+  fs.writeFileSync(
+    'data/' + Date.now() + '.json',
+    JSON.stringify(req.query)
+  )
+
+
 # bower assets
 makeBowerPath = (project, file) -> path.join(rootPath, 'bower_components', project, file)
 
