@@ -80,10 +80,11 @@ app.controller(
         database.rows.then(
           (data) ->
             for row in data
-              if row.id in imagesIds
-                scope.images.push({
-                  url: row.url
-                })
+              for imageId in imagesIds
+                if (row.id == imageId)
+                  scope.images.push({
+                    url: row.url
+                  })
 
             if (scope.images.length < 3)
               scope.message = 'Veuillez entrer un code valide.'
