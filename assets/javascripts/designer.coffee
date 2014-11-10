@@ -51,14 +51,14 @@ app.controller(
     (scope, http, compositions, database) ->
 
       scope.sliderInterval = 15000
-      scope.compositions = compositions
+      scope.compositions = []
 
       http.get('/load').then(
         (data) ->
           nextId = 0
           for row in data.data
             nextId += 1
-            compositions.push(
+            scope.compositions.push(
               id: nextId
               title: row.title
               author: row.author
@@ -85,7 +85,6 @@ app.controller(
                   url: row.url
                 })
 
-            console.log(scope.images.length)
             if (scope.images.length < 3)
               scope.message = 'Veuillez entrer un code valide.'
 
@@ -167,9 +166,6 @@ app.controller(
             author: composition.author
             text: composition.text
         )
-
-        compositions.push(composition)
-        compositions.shift() if compositions.length > 20
 
         window.location = '#/'
   ]
