@@ -41,21 +41,21 @@ And the designer ('table screen') with following url:
 
 	chrome --kiosk "http://localhost:8080/designer.html"
 
-## Authors:
+## Authors
 
 Quentin Berthet: arduino and cool hardware hacking.
 
-Camille De Dieu: graphism.
+Camille De Dieu: user experience and graphism.
 
 Antony Ducommun: anti-tecture and 'slot machine' app.
 
 Geoffroy Perriard: 'table screen' app.
 
-Stéphanie Pouchot: communication.
+Stéphanie Pouchot: communication and content.
 
 Jessica Quiry: content.
 
-Camille Seewer: hardware.
+Camille Seewer: hardware and maker.
 
 Delphine Schumacher: mediation.
 
