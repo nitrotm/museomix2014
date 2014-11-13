@@ -6,9 +6,9 @@ Prototype of the 'MAH Machine: Mixing Art & History'. The project is about two u
 
 First a 'slot machine' is selecting some art pieces out of the museum collection. Designed with a hardware lever like in a real machine. This machine is also printing a ticket containing the 3 selected pieces for the visitor.
 
-Then - if the visitor wish it - a second machine (table screen) can be used to write a short story about how s/he perceives the 3 art pieces. Many type of inputs are possible in theory (text, drawing, audio, video, ...) but only a simple text input is implemented (could be in the form of keywords, questions, poems, haikus, jokes...). The machine also displays previous entered stories to passing visitors.
+Then - if the visitor wish it - a second machine (table screen) can be used to write a short story about how s/he perceives the 3 art pieces. Many type of inputs are possible in theory (text, drawing, audio, video, ...) but only a simple text input is implemented (could be in the form of keywords, questions, poems, haikus, jokes...). The machine also displays previously entered stories to passing visitors.
 
-http://www.museomix.org/prototypes/mah-machine/
+[SUMMARY of MAH Machine: Mixing Art & History](http://www.museomix.org/prototypes/mah-machine/)
 
 ## Technology
 
@@ -41,14 +41,26 @@ And the designer ('table screen') with following url:
 
 	chrome --kiosk "http://localhost:8080/designer.html"
 
-## Technical authors:
+## Authors:
 
 Quentin Berthet: arduino and cool hardware hacking.
+
+Camille De Dieu: graphism.
 
 Antony Ducommun: anti-tecture and 'slot machine' app.
 
 Geoffroy Perriard: 'table screen' app.
 
+Stéphanie Pouchot: communication.
+
+Jessica Quiry: content.
+
+Camille Seewer: hardware.
+
+Delphine Schumacher: mediation.
+
+Corinne Spielewoy: facilitator.
+
 ## License
 
-CC-BY-SA
+[CC-BY-SA](http://creativecommons.org/licenses/by-sa/4.0/)
