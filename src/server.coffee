@@ -13,10 +13,9 @@ fs.mkdirSync(buildPath) unless fs.existsSync(buildPath)
 
 
 # configure express
-serveStatic = require('serve-static')
+express = require('express')
 
-app = new require('express')()
-# app.engine('jade', require('jade').__express)
+app = express()
 app.set('views', viewsPath)
 app.set('view engine', 'jade')
 app.use(
@@ -24,8 +23,7 @@ app.use(
   )
 )
 app.use(
-  require('connect-compiler')(
-    enabled: ['coffee']
+  require('connect-coffee-script')(
     src: assetsPath
     dest: buildPath
   )
@@ -37,13 +35,13 @@ app.use(
   )
 )
 app.use(
-  serveStatic(buildPath)
+  express.static(buildPath)
 )
 app.use(
-  serveStatic(publicPath)
+  express.static(publicPath)
 )
 app.use(
-  serveStatic(bowerPath)
+  express.static(bowerPath)
 )
 
 
@@ -150,6 +148,73 @@ SerialPort = require('serialport').SerialPort
 
 
 # printing
+printer = new SerialPort(
+  '/dev/ttyUSB0',
+  baudrate: 19200
+  dataBits: 8
+  stopBits: 1
+  parity: false
+  rtscts: false
+  xon: false
+  xoff: false
+  flowControl: false
+  encoding: 'binary'
+)
+printer.on(
+  'error',
+  (e) -> console.log(e)
+)
+printer.on(
+  'data',
+  (data) ->
+    console.log(data.toString())
+)
+printer.open(
+  ->
+    ESC = '\x1b'
+    DC2 = '\x12'
+
+    cmds = [
+      # ESC + '@'
+      # 'Hello world!\n'
+    ]
+
+    data = fs.readFileSync("/home/nitro/sample.data")
+    offset = 0
+    for y in [0...384]
+      row = new Buffer(52)
+      row.writeUInt8(0x12, 0)
+      row.writeUInt8(0x2a, 1)
+      row.writeUInt8(1, 2)
+      row.writeUInt8(48, 3)
+      group = 0
+      count = 0
+      for x in [0...384]
+        i = x % 8
+        if i == 0
+          if x > 0
+            row.writeUInt8(group, count + 4)
+            count += 1
+          group = 0
+        group |= (1 << (7 - i)) if data.readUIntBE(offset, 3) == 0
+        offset += 3
+      row.writeUInt8(group, count + 4)
+      cmds.push(row)
+
+    cmds.push('\n\n')
+
+    # for cmd in cmds
+    #   console.log(new Buffer(cmd, 'binary').toString('hex'))
+
+    sendNextCmd = ->
+      return unless cmds.length > 0
+      cmd = cmds[0]
+      cmds.splice(0, 1)
+      printer.write(cmd, -> setTimeout(sendNextCmd, 50) )
+
+    sendNextCmd()
+)
+
 app.get '/print', (req, res) ->
   res.end('')
 

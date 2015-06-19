@@ -1,6 +1,6 @@
 {
-  "name": "museomix-artroulette",
-  "version": "0.1.0",
+  "name": "lemanmake-mixandmake",
+  "version": "1.0.0",
   "main": "run.js",
   "ignore": [
     "**/.*"

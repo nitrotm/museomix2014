@@ -3,7 +3,6 @@
 app = angular.module(
   'app',
   [
-    'ngResource'
     'database'
   ]
 )
@@ -82,7 +81,7 @@ app.controller(
               500
             )
         )
-      listenTrigger()
+      # listenTrigger()
   ]
 )
 
@@ -189,7 +188,7 @@ app.directive(
         cylinderMaterial = new THREE.MeshPhongMaterial(
           # wireframe: true
           # color: 0xffffff
-          shininess: 255
+          shininess: 64
           map: texture
         )
         cylinderMesh = new THREE.Mesh(cylinderGeometry, cylinderMaterial)
@@ -203,7 +202,7 @@ app.directive(
 
         scene.add(new THREE.AmbientLight(0xaaaaaa))
         light = new THREE.DirectionalLight(0xe0e0e0, 0.2)
-        light.position.set(8, 5, 20)
+        light.position.set(-8, 3, 20)
         light.target = cylinderMesh
         scene.add(light)
 
@@ -228,12 +227,13 @@ app.directive(
             angle += (t - t0) * (t - t1) * (t - t3) / (t2 - t0) / (t2 - t1) / (t2 - t3) * x2
             angle += (t - t0) * (t - t1) * (t - t2) / (t3 - t0) / (t3 - t1) / (t3 - t2) * x3
             cylinderMesh.rotation.x = (baseAngle - angle) * Math.PI / 180
+
+            requestAnimationFrame(render)
           else
             cylinderMesh.rotation.x = (baseAngle - x2) * Math.PI / 180
             clock = null
 
           renderer.render(scene, camera)
-          requestAnimationFrame(render)
         render()
 
         start = (x) ->
@@ -241,6 +241,7 @@ app.directive(
           x2 = 360 / 13 * x + 360 * 9
           x3 = 360 / 13 * x + 360 * 10
           clock = new THREE.Clock()
+          requestAnimationFrame(render)
 
         scope.$watch(
           'slotSelection',

@@ -3,7 +3,6 @@
 app = angular.module(
   'database',
   [
-    'ngResource'
   ]
 )
 

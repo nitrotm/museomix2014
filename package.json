@@ -11,12 +11,12 @@
   "dependencies": {
     "bower": "*",
     "express": "*",
-    "serve-static": "*",
     "compression": "*",
-    "connect-compiler": "*",
     "coffee-script": "*",
+    "connect-coffee-script": "*",
     "less-middleware": "*",
     "jade": "*",
+    "csv-parse": "*",
     "serialport": "*"
   }
 }

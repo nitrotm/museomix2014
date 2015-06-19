@@ -1,3 +1,6 @@
+@import 'bower_components/bootstrap-less/less/bootstrap.less';
+
+
 @cellHeight: 15cm;
 
 
@@ -11,15 +14,18 @@ html, body {
 generator {
   display: block;
   position: absolute;
-  top: 1cm;
-  bottom: 1cm;
-  left: 1cm;
-  right: 1cm;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 
   cells {
     display: block;
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    top: 1cm;
+    bottom: 1cm;
+    left: 1cm;
+    right: 1cm;
 
     cell {
       position: absolute;
@@ -28,8 +34,8 @@ generator {
       width: 32%;
       top: 0;
       bottom: 0;
-      border: 2mm solid rgba(0, 0, 0, 0.3);
-      background-color: rgba(255, 255, 255, 0.8);
+      // border: 2mm solid rgba(0, 0, 0, 0.3);
+      // background-color: rgba(255, 255, 255, 0.8);
 
       &.cell-1 {
         left: 1%;
@@ -57,11 +63,14 @@ generator {
     }
   }
 
-  .code {
+  mask {
+    display: none;
     position: absolute;
-    top: @cellHeight + 2cm;
-    left: 1cm;
-    right: 1cm;
-    font-size: 2cm;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: url('../images/mask.png') no-repeat top left;
+    background-size: cover;
   }
 }
