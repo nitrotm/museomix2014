@@ -1,23 +1,22 @@
 {
-  "name": "museomix-artroulette",
-  "version": "0.1.0",
-  "description": "Museomix ArtRoulette Project",
+  "name": "lemanmake-mixandmake",
+  "version": "1.0.0",
+  "description": "LemanMake Mix&Make Project",
   "author": "Antony Ducommun <nitro@tmsrv.org>",
   "license": "GPL",
   "repository": {
     "type": "git",
-    "url": "https://github.com/-.git"
+    "url": "https://github.com/nitrotm/museomix2014.git"
   },
   "dependencies": {
     "bower": "*",
-    "express": "",
-    "serve-static": "",
-    "compression": "",
-    "connect-compiler": "",
-    "coffee-script": "",
-    "jade": "",
-    "less": "",
-    "csv-parse": "",
-    "serialport": ""
+    "express": "*",
+    "serve-static": "*",
+    "compression": "*",
+    "connect-compiler": "*",
+    "coffee-script": "*",
+    "less-middleware": "*",
+    "jade": "*",
+    "serialport": "*"
   }
 }
