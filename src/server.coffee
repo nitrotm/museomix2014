@@ -1,6 +1,9 @@
 console = require('console')
 fs = require('fs')
 path = require('path')
+SerialPort = require('serialport').SerialPort
+Iconv = require('iconv').Iconv
+
 
 rootPath = path.normalize(path.join(__dirname, '..'))
 bowerPath = path.join(rootPath, 'bower_components')
@@ -51,100 +54,43 @@ app.get '/', (req, res) -> res.render('generator')
 #
 app.post '/text', (req, res) ->
 
-# datasets
+# dataset
+rows = []
+fs.readFile(
+  'data/database.csv',
+  (e, data) ->
+    return res.end() if e?
+
+    first = true
+    parser = require('csv-parse')(
+      delimiter: ','
+    )
+    parser.on(
+      'readable',
+      ->
+        while row = parser.read()
+          if first
+            first = false
+            continue
+          rows.push(
+            id: row[0],
+            author: row[1],
+            title: row[2]
+          )
+    )
+    parser.on(
+      'error',
+      -> res.end()
+    )
+
+    parser.write(data)
+    parser.end()
+)
+
 app.get '/dataset', (req, res) ->
-  first = true
-  rows = []
-
-  parser = require('csv-parse')(
-    delimiter: ','
-  )
-  parser.on(
-    'readable',
-    ->
-      while row = parser.read()
-        if first
-          first = false
-          continue
-        rows.push(
-          id: row[1]
-          url: 'images/' + row[2] + '-scaled.jpg'
-          title: row[3]
-          description: row[6]
-          room: row[7]
-        )
-  )
-  parser.on(
-    'error',
-    -> res.end()
-  )
-  parser.on(
-    'finish',
-    -> res.end(JSON.stringify(rows))
-  )
-
   res.setHeader('Content-Type', 'application/json')
   res.writeHead(200)
-
-  fs.readFile(
-    'data/database.csv',
-    (e, data) ->
-      return res.end() if e?
-      parser.write(data)
-      parser.end()
-  )
-
-
-# arduino listener
-SerialPort = require('serialport').SerialPort
-# arduino = new SerialPort(
-#   'COM4',
-#   baudrate: 115200
-#   dataBits: 8
-#   stopBits: 1
-#   parity: false
-#   rtscts: false
-#   xon: false
-#   xoff: false
-#   flowControl: false
-# )
-# arduinoBuffer = ''
-# arduinoTrigger = null
-# arduinoTriggerTimer = null
-# arduinoSwitch = 0
-# arduino.on(
-#   'error',
-#   (e) -> console.log(e)
-# )
-# arduino.on(
-#   'data',
-#   (data) ->
-#     arduinoBuffer += data.toString()
-#     i = arduinoBuffer.indexOf('\n')
-#     if i > 0
-#       line = arduinoBuffer.substring(0, i + 1).trim()
-#       arduinoBuffer = arduinoBuffer.substring(i + 1)
-#       console.log(line)
-#       if arduinoTrigger
-#         clearTimeout(arduinoTriggerTimer)
-#         arduinoTriggerTimer = null
-#         arduinoTrigger.end('1')
-#         arduinoTrigger = null
-#       else
-#         arduinoSwitch = Date.now()
-# )
-
-# app.get '/trigger', (req, res) ->
-#   arduinoTrigger = res
-#   if arduinoSwitch? && (Date.now() - arduinoSwitch) < 60
-#     arduinoSwitch = 0
-#     res.end('1')
-#   else
-#     arduinoTriggerTimer = setTimeout(
-#       -> res.end('0')
-#       ,
-#       5000
-#     )
+  res.end(JSON.stringify(rows))
 
 
 # printing
@@ -171,17 +117,43 @@ printer.on(
 )
 printer.open(
   ->
-    ESC = '\x1b'
-    DC2 = '\x12'
+    return
+)
 
-    cmds = [
-      # ESC + '@'
-      # 'Hello world!\n'
-    ]
+app.get '/print', (req, res) ->
+  res.end('')
 
-    data = fs.readFileSync("/home/nitro/sample.data")
+  choice1 = rows[parseInt(req.query.id1)]
+  choice2 = rows[parseInt(req.query.id2)]
+  choice3 = rows[parseInt(req.query.id3)]
+
+  console.log(choice1)
+  console.log(choice2)
+  console.log(choice3)
+
+  ESC = '\x1b'
+  DC2 = '\x12'
+
+  TEXTLEFT = ESC + 'a0'
+  TEXTCENTER = ESC + 'a1'
+  TEXTRIGHT = ESC + 'a2'
+
+  iconv = new Iconv('UTF-8', 'CP437')
+
+  cmds = [
+    # ESC + '@'
+    # ESC + 'R' + '\x01',
+    TEXTLEFT,
+    iconv.convert('+------------------------------+\n'),
+    iconv.convert('|           MIX&MAKE           |\n'),
+    iconv.convert('+------------------------------+\n'),
+    '\n'
+  ]
+
+  printImage = (file) ->
+    data = new Buffer(fs.readFileSync(file, encoding: 'binary'), 'binary')
     offset = 0
-    for y in [0...384]
+    for y in [0...288]
       row = new Buffer(52)
       row.writeUInt8(0x12, 0)
       row.writeUInt8(0x2a, 1)
@@ -196,129 +168,115 @@ printer.open(
             row.writeUInt8(group, count + 4)
             count += 1
           group = 0
-        group |= (1 << (7 - i)) if data.readUIntBE(offset, 3) == 0
+        group |= (1 << (7 - i)) if data.readUInt8(offset) == 0
         offset += 3
       row.writeUInt8(group, count + 4)
       cmds.push(row)
 
-    cmds.push('\n\n')
+  cmds.push('--------------------------------\n')
+  cmds.push(TEXTCENTER)
+  cmds.push(iconv.convert(choice1.title))
+  cmds.push('\n')
+  cmds.push('--------------------------------\n')
+  cmds.push(ESC + 'J\x05')
+  printImage('data/items/print/' + choice1.id + '.rgb')
+  cmds.push(TEXTCENTER)
+  cmds.push(iconv.convert(choice1.author))
+  cmds.push('\n\n')
 
-    # for cmd in cmds
-    #   console.log(new Buffer(cmd, 'binary').toString('hex'))
+  cmds.push('--------------------------------\n')
+  cmds.push(TEXTCENTER)
+  cmds.push(iconv.convert(choice2.title))
+  cmds.push('\n')
+  cmds.push('--------------------------------\n')
+  cmds.push(ESC + 'J\x05')
+  printImage('data/items/print/' + choice2.id + '.rgb')
+  cmds.push(TEXTCENTER)
+  cmds.push(iconv.convert(choice2.author))
+  cmds.push('\n\n')
 
-    sendNextCmd = ->
-      return unless cmds.length > 0
-      cmd = cmds[0]
-      cmds.splice(0, 1)
-      printer.write(cmd, -> setTimeout(sendNextCmd, 50) )
+  cmds.push('--------------------------------\n')
+  cmds.push(TEXTCENTER)
+  cmds.push(iconv.convert(choice3.title))
+  cmds.push('\n')
+  cmds.push('--------------------------------\n')
+  cmds.push(ESC + 'J\x05')
+  printImage('data/items/print/' + choice3.id + '.rgb')
+  cmds.push(TEXTCENTER)
+  cmds.push(iconv.convert(choice3.author))
+  cmds.push('\n\n')
 
-    sendNextCmd()
+  cmds.push(TEXTLEFT)
+  cmds.push(iconv.convert('--------------------------------\n\n'))
+
+  cmds.push(iconv.convert('Tu peux maintenant aller à la\nrecherche de ces 3 éléments.\n\n'))
+  cmds.push(iconv.convert('Que pourrais-tu inventer avec\nceux-ci ?\n\n'))
+  cmds.push(iconv.convert('Reviens ensuite exprimer tes\nidées les plus créatives!\n\n'))
+
+  cmds.push(iconv.convert('+------------------------------+\n'))
+  cmds.push(iconv.convert('|       www.museomix.ch        |\n'))
+  cmds.push(iconv.convert('+------------------------------+\n'))
+  cmds.push('\n\n\n\n')
+
+  sendNextCmd = ->
+    return unless cmds.length > 0
+    cmd = cmds[0]
+    cmds.splice(0, 1)
+    printer.write(cmd, -> setTimeout(sendNextCmd, 50) )
+
+  sendNextCmd()
+
+
+# arduino listener
+arduino = new SerialPort(
+  '/dev/ttyUSB1',
+  baudrate: 115200
+  dataBits: 8
+  stopBits: 1
+  parity: false
+  rtscts: false
+  xon: false
+  xoff: false
+  flowControl: false
+)
+arduinoBuffer = ''
+arduinoTrigger = null
+arduinoTriggerTimer = null
+arduinoSwitch = 0
+arduino.on(
+  'error',
+  (e) -> console.log(e)
+)
+arduino.on(
+  'data',
+  (data) ->
+    arduinoBuffer += data.toString()
+    i = arduinoBuffer.indexOf('\n')
+    if i > 0
+      line = arduinoBuffer.substring(0, i + 1).trim()
+      arduinoBuffer = arduinoBuffer.substring(i + 1)
+      console.log(line)
+      if arduinoTrigger
+        clearTimeout(arduinoTriggerTimer)
+        arduinoTriggerTimer = null
+        arduinoTrigger.end('1')
+        arduinoTrigger = null
+      else
+        arduinoSwitch = Date.now()
 )
 
-app.get '/print', (req, res) ->
-  res.end('')
+app.get '/trigger', (req, res) ->
+  arduinoTrigger = res
+  if arduinoSwitch? && (Date.now() - arduinoSwitch) < 60
+    arduinoSwitch = 0
+    res.end('1')
+  else
+    arduinoTriggerTimer = setTimeout(
+      -> res.end('0')
+      ,
+      5000
+    )
 
-  # fs.writeFileSync(
-  #   'print.tex',
-  #   """
-  #     % Document type
-  #     \\documentclass[a4paper,10pt]{article}
-  #     \\usepackage[paperwidth=62mm,paperheight=210mm,margin=0mm]{geometry}
-  #     \\usepackage[english]{babel}
-  #     \\usepackage{indentfirst}
-
-  #     % Standard extensions
-  #     \\usepackage{parskip}
-  #     \\usepackage{float}
-  #     \\usepackage{color}
-  #     \\usepackage{multicol}
-  #     \\usepackage{subcaption}
-  #     \\usepackage[normalem]{ulem}
-
-  #     % Standard font
-  #     \\usepackage{fontspec}
-  #     \\setmainfont{Arial}
-
-  #     % Image support
-  #     \\usepackage{graphicx}
-  #     \\usepackage{wallpaper}
-
-  #     % Tables support
-  #     \\usepackage{tabularx}
-  #     \\usepackage{multirow}
-
-
-  #     % Sections configuration
-  #     \\setcounter{secnumdepth}{0}
-  #     \\setcounter{tocdepth}{0}
-
-  #     % Page formatting
-  #     \\pagestyle{empty}
-
-  #     \\setlength{\\marginparsep}{0pt}
-  #     \\setlength{\\marginparwidth}{0pt}
-  #     \\setlength{\\parindent}{0pt}
-  #     \\setlength{\\parskip}{1pt}
-
-  #     % Document content
-  #     \\begin{document}
-  #       \\par\\noindent
-  #       \\parbox[t][20mm][c]{62mm}{
-  #         \\centering
-  #         \\par\\noindent\\textbf{Mixing Art \\& History}
-  #         \\vspace{1mm}
-  #         \\par\\noindent{\\footnotesize 1- Découvrez les œuvres proposées}
-  #         \\par\\noindent{\\footnotesize 2- Rejoignez la table d'expression}
-  #         \\par\\noindent{\\footnotesize 3- Créez et partagez votre histoire}
-  #         \\vspace{1mm}
-  #         \\par\\noindent\\textbf{Votre code: #{req.query.id1}-#{req.query.id2}-#{req.query.id3}}
-  #         \\vspace{1mm}
-  #         \\par\\noindent Bonne visite!}
-  #       \\vspace{3mm}
-  #       \\par\\noindent
-  #       \\parbox[t][50mm][c]{62mm}{
-  #         \\centering
-  #         \\par\\noindent\\includegraphics[height=30mm]{public/images/#{req.query.id1}.jpg}
-  #         \\par\\noindent\\textrm{\\small #{req.query.text1}}
-  #         \\par\\noindent\\textrm{\\footnotesize #{req.query.description1}}
-  #         \\vspace{1mm}
-  #         \\par\\noindent #{req.query.room1}
-  #       }
-  #       \\vspace{3mm}
-  #       \\par\\noindent
-  #       \\parbox[t][50mm][c]{62mm}{
-  #         \\centering
-  #         \\par\\noindent\\includegraphics[height=30mm]{public/images/#{req.query.id2}.jpg}
-  #         \\par\\noindent\\textrm{\\small #{req.query.text2}}
-  #         \\par\\noindent\\textrm{\\footnotesize #{req.query.description2}}
-  #         \\vspace{1mm}
-  #         \\par\\noindent #{req.query.room2}
-  #       }
-  #       \\vspace{3mm}
-  #       \\par\\noindent
-  #       \\parbox[t][50mm][c]{62mm}{
-  #         \\centering
-  #         \\par\\noindent\\includegraphics[height=30mm]{public/images/#{req.query.id3}.jpg}
-  #         \\par\\noindent\\textrm{\\small #{req.query.text3}}
-  #         \\par\\noindent\\textrm{\\footnotesize #{req.query.description2}}
-  #         \\vspace{1mm}
-  #         \\par\\noindent #{req.query.room3}
-  #       }
-  #     \\end{document}
-  #   """
-  # )
-
-  # child = child_process.exec(
-  #   '\\texlive\\2014\\bin\\win32\\xelatex.exe print.tex',
-  #   (err, stdout, stdin) ->
-  #     child_process.exec(
-  #       '\\texlive\\2014\\bin\\win32\\pdf2ps.exe print.pdf',
-  #         (err, stdout, stdin) ->
-  #           child_process.exec(
-  #             '"\\Program Files (x86)\\SumatraPDF\\SumatraPDF.exe" -print-to-default print.pdf'
-  #           )
-  #     )
-  #   )
 
 # start server
 app.listen 8080

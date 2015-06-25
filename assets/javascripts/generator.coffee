@@ -15,49 +15,36 @@ app.controller(
     '$http'
     (scope, database, $http) ->
       generate = (print = false) ->
-        available = (i for i in [0...scope.choices.length] when ['a2', 'a3', 'a9', 'b7'].indexOf(scope.choices[i].id) < 0)
-        selection = []
-        while available.length > 0
-          choice = available.splice(
-            parseInt(Math.random() * available.length),
-            1
-          )
-          selection.push(scope.choices[choice[0]])
-        if print
-          $('#music')[0].play()
-        scope.image1 = selection[0].index
+        selection = [
+          parseInt(Math.random() * 12),
+          parseInt(Math.random() * 12),
+          parseInt(Math.random() * 12)
+        ]
+        $('#music')[0].play() if print
+        scope.image1 = selection[0]
         setTimeout(
           ->
-            scope.image2 = selection[1].index
+            scope.image2 = selection[1]
             scope.$digest()
           ,
           500
         )
         setTimeout(
           ->
-            scope.image3 = selection[2].index
+            scope.image3 = selection[2]
             scope.$digest()
-
-            if print
-              $http.get(
-                '/print',
-                params:
-                  id1: selection[0].id
-                  text1: selection[0].title
-                  description1: selection[0].description
-                  room1: selection[0].room
-                  id2: selection[1].id
-                  text2: selection[1].title
-                  description2: selection[1].description
-                  room2: selection[1].room
-                  id3: selection[2].id
-                  text3: selection[2].title
-                  description3: selection[2].description
-                  room3: selection[2].room
-              )
           ,
           1000
         )
+
+        if print || true
+          $http.get(
+            '/print',
+            params:
+              id1: selection[0]
+              id2: 12 + selection[1]
+              id3: 24 + selection[2]
+          )
 
       database.rows.then(
         (data) ->
@@ -111,7 +98,7 @@ app.directive(
     (database) ->
       scope:
         slotSelection: '='
-      link: (scope, el) ->
+      link: (scope, el, attrs) ->
         $(el).children().remove()
 
         width = $(el).innerWidth()
@@ -131,8 +118,9 @@ app.directive(
 
         scene = new THREE.Scene()
 
-        texture = THREE.ImageUtils.loadTexture('images/texture3.jpg')
-        texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+        texture = THREE.ImageUtils.loadTexture(attrs['texture'])
+        texture.wrapS = texture.wrapT = THREE.ClampToEdgeWrapping
+        texture.minFilter = THREE.LinearFilter
 
         cylinderWidth = 8
         cylinderRadius = 15
@@ -237,9 +225,9 @@ app.directive(
         render()
 
         start = (x) ->
-          x1 = 360 / 13 * x + 360 * 1
-          x2 = 360 / 13 * x + 360 * 9
-          x3 = 360 / 13 * x + 360 * 10
+          x1 = 360 / 12 * x + 360 * 1
+          x2 = 360 / 12 * x + 360 * 9
+          x3 = 360 / 12 * x + 360 * 10
           clock = new THREE.Clock()
           requestAnimationFrame(render)
 

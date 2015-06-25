@@ -17,6 +17,7 @@
     "less-middleware": "*",
     "jade": "*",
     "csv-parse": "*",
-    "serialport": "*"
+    "serialport": "*",
+    "iconv": "*"
   }
 }
