@@ -1,37 +1,37 @@
-id,author,name
-1,Alexandre Cotting,Résolveur Rubik's Cube
-2,Gerry Oulevay,Barbapapi
-3,Explorado,Boxibot
-4,Explorado,Fablab
-5,FabLab Chêne20,FabLab
-6,FabLab Fribourg,FabLab
-7,FabLab La Côte,Horloge Nixie
-8,FabLab La Côte,FabLab
-9,Fablab Neuch,Atelier 3D Lumineuse
-10,Fablab Neuch,FabLab
-11,FixMe Hackerspace,FabLab
-12,Hackuarium Renens,FabLab
-13,Hauser Charles,Horloge
-14,Hauser Charles,Pendule Incliné
-15,Laurent Ferrari,Bitx
-16,Leman Make,Expo
-17,Leman Make,Makey-Makey
-18,Matériaux,Bois MDF
-19,Matériaux,Caoutchouc
-20,Matériaux,Gazon
-21,Matériaux,Métal
-22,Matériaux,Mousse
-23,Matériaux,Peinture
-24,Matériaux,Plexiglass
-25,Microclub,Drone3D
-26,Microclub,Hydro
-27,Objets,Ampoule
-28,Objets,Chaise
-29,Objets,Fourchette
-30,Objets,Hélice
-31,Objets,Ipad
-32,Objets,Livre
-33,Objets,Monnaie
-34,Objets,Pot
-35,PostTenebrasLab,FabLab
-36,Serge Perret,Unamed
+id,title,description
+1,Blockchain Technology Beyond Bitcoin,Thu. - 11:15 to 12:30
+2,Joseph Lubin,Thu. - 11:15 to 12:30
+3,Primavera De Filippi,Thu. - 11:15 to 12:30
+4,Stephan Tual,Thu. - 11:15 to 12:30
+5,Atreyam Sharma,Thu. - 14:00 to 15:30
+6,Brian Solis,Thu. - 14:00 to 15:30
+7,Kristin Heinonen,Thu. - 14:00 to 15:30
+8,Nadina Frehner,Thu. - 14:00 to 15:30
+9,The Wild Promises of the Digital Customer Experience,Thu. - 14:00 to 15:30
+10,Enter the Anti-Disciplinary Space,Thu. - 16:30 to 18:00
+11,Caecilia Charbonnier,Thu. - 16:30 to 18:00
+12,James Patten,Thu. - 16:30 to 18:00
+13,Sarah Brin,Thu. - 16:30 to 18:00
+14,Subodh Patil,Thu. - 16:30 to 18:00
+15,David Li,Fri. - 11:15 to 12:45
+16,Denis Slieker,Fri. - 11:15 to 12:45
+17,From Digital Transition to Ecological Resilience,Fri. - 11:15 to 12:45
+18,Laur Fisher,Fri. - 11:15 to 12:45
+19,Lorenz M. Hilty,Fri. - 11:15 to 12:45
+20,"Artificial Intelligence, Technology without Alternative?",Fri. - 14:00 to 15:30
+21,Alex Lebrun,Fri. - 14:00 to 15:30
+22,Henri Bergius,Fri. - 14:00 to 15:30
+23,Min Li Marti,Fri. - 14:00 to 15:30
+24,Silviu Andrica,Fri. - 14:00 to 15:30
+25,Joël Vacheron,Fri. - 16:30 to 18:00
+26,Making Sense of Technology,Fri. - 16:30 to 18:00
+27,Natalie Kane,Fri. - 16:30 to 18:00
+28,Tobias Revell,Fri. - 16:30 to 18:00
+29,Fondue,Thu. - 19:30 onward
+30,Lift Conference,"10-12 Feb. 2016, Geneva"
+31,Blockchain Technology Beyond Bitcoin,Thu. - 11:15 to 12:30
+32,The Wild Promises of the Digital Customer Experience,Thu. - 14:00 to 15:30
+33,Enter the Anti-Disciplinary Space,Thu. - 16:30 to 18:00
+34,From Digital Transition to Ecological Resilience,Fri. - 11:15 to 12:45
+35,"Artificial Intelligence, Technology without Alternative?",Fri. - 14:00 to 15:30
+36,Making Sense of Technology,Fri. - 16:30 to 18:00

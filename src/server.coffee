@@ -145,7 +145,7 @@ app.get '/print', (req, res) ->
     # ESC + 'R' + '\x01',
     TEXTLEFT,
     iconv.convert('+------------------------------+\n'),
-    iconv.convert('|           MIX&MAKE           |\n'),
+    iconv.convert('|           LIFT 2016          |\n'),
     iconv.convert('+------------------------------+\n'),
     '\n'
   ]
@@ -209,12 +209,10 @@ app.get '/print', (req, res) ->
   cmds.push(TEXTLEFT)
   cmds.push(iconv.convert('--------------------------------\n\n'))
 
-  cmds.push(iconv.convert('Tu peux maintenant aller à la\nrecherche de ces 3 éléments.\n\n'))
-  cmds.push(iconv.convert('Que pourrais-tu inventer avec\nceux-ci ?\n\n'))
-  cmds.push(iconv.convert('Reviens ensuite exprimer tes\nidées les plus créatives!\n\n'))
+  cmds.push(iconv.convert('How do these talks inspire you?\n\n'))
 
   cmds.push(iconv.convert('+------------------------------+\n'))
-  cmds.push(iconv.convert('|       www.museomix.ch        |\n'))
+  cmds.push(iconv.convert('|      liftconference.com      |\n'))
   cmds.push(iconv.convert('+------------------------------+\n'))
   cmds.push('\n\n\n\n')
 

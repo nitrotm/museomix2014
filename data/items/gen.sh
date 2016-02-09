@@ -9,11 +9,11 @@ do
     dir=$(dirname "$i")
 
     # generate texture
-    convert "src/$i" -background white -colorspace RGB -normalize -resize "240x240" -gravity center -extent "256x256" -format "PNG" "texture/$id.png"
+    convert "$i" -background white -colorspace RGB -normalize -resize "240x240" -gravity center -extent "256x256" -format "PNG" "texture/$id.png"
 
     # generate print
     # convert "src/$i" -background white -colorspace RGB -normalize -resize "384x288" -gravity center -extent "384x288" -ordered-dither o8x8 -monochrome -colorspace RGB -format "PNG" "print/$id.png"
-    convert "src/$i" -background white -colorspace RGB -normalize -resize "384x288" -gravity center -extent "384x288" -ordered-dither o8x8 -monochrome -colorspace RGB -size "384x288" -depth 8 -format "RGB" "print/$id.rgb"
+    convert "$i" -background white -colorspace RGB -normalize -resize "384x288" -gravity center -extent "384x288" -ordered-dither o8x8 -monochrome -colorspace RGB -size "384x288" -depth 8 -format "RGB" "print/$id.rgb"
 
     id=$(expr $id + 1)
 done
@@ -33,7 +33,7 @@ convert -append \
     texture/11.png \
     texture/12.png \
     -format "PNG" \
-    ../../public/images/lemanmake1.png
+    ../../public/images/lift1.png
 
 convert -append \
     texture/13.png \
@@ -49,7 +49,7 @@ convert -append \
     texture/23.png \
     texture/24.png \
     -format "PNG" \
-    ../../public/images/lemanmake2.png
+    ../../public/images/lift2.png
 
 convert -append \
     texture/25.png \
@@ -65,4 +65,4 @@ convert -append \
     texture/35.png \
     texture/36.png \
     -format "PNG" \
-    ../../public/images/lemanmake3.png
+    ../../public/images/lift3.png
